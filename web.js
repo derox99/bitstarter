@@ -1,9 +1,16 @@
-var express = require('express');
 
-var app = express.createServer(express.logger());
+var express = require('express');
+var app = express();
+var fs = require('fs')
+
+app.use(express.logger());
 
 app.get('/', function(request, response) {
-  response.send('Hello World 22!');
+  fs.readFile('index.html', function(err, cont)
+  {
+	if(err) throw err;
+        response.send(cont.toString());
+   });
 });
 
 var port = process.env.PORT || 5000;
